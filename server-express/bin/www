@@ -3,7 +3,7 @@
 /**
  * Module dependencies.
  */
-
+require('dotenv').config();
 const app = require('../server');
 const http = require('http');
 
@@ -62,11 +62,16 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges. Check the permissions of your Node installation.');
+      console.error(
+        bind +
+          ' requires elevated privileges. Check the permissions of your Node installation.'
+      );
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use. Do you already have a server running?');
+      console.error(
+        bind + ' is already in use. Do you already have a server running?'
+      );
       process.exit(1);
       break;
     default:
