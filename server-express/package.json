@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "db:reset": "sequelize db:drop; sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +21,7 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7",
+    "pg": "^8.6.0",
     "pretty-error": "^3.0.3",
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0"
