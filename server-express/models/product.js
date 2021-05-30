@@ -1,6 +1,18 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
+  /**
+   * Product
+   * @typedef {object} Product
+   * @property {string} name.required
+   * @property {string} image
+   * @property {string} description
+   * @property {number} price
+   * @property {number} quantity
+   * @property {string} publishedAt
+   * @property {date} createdAt
+   * @property {date} updatedAt
+   */
   class Product extends Model {
     static associate(models) {
       Product.belongsTo(models.Category);
