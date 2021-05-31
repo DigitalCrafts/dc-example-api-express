@@ -27,7 +27,7 @@ function configureSwagger(app) {
       },
       {
         description: 'Production',
-        url: `https://localhost:${process.env.PORT || 3000}`,
+        url: `${process.env.APP_URL || 'https://tbd.digitalcrafts.com'}`,
       },
     ],
     baseDir: __dirname,
