@@ -4,7 +4,7 @@ const pe = new PrettyError();
 
 pe.skipNodeFiles();
 pe.skipPackage('express');
-pe.alias(path.resolve(), '[server-express]');
+pe.alias(path.resolve(), `[${path.basename(path.resolve())}]`);
 pe.appendStyle({
   'pretty-error > header': {
     marginTop: 1,

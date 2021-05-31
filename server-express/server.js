@@ -7,6 +7,8 @@ const session = require('express-session');
 const db = require('./models');
 const handleErrors = require('./middleware/handleErrors');
 const configureSwagger = require('./lib/swagger');
+const pe = require('./lib/prettyError');
+pe.start();
 
 const indexRouter = require('./routes/index');
 const apiProductsRouter = require('./routes/api/products');
