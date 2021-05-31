@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
    * @property {string} description
    * @property {integer} price
    * @property {integer} quantity
+   * @property {integer} CategoryId
    * @property {string} publishedAt -  - date-time
    * @property {string} createdAt -  - date-time
    * @property {string} updatedAt -  - date-time
