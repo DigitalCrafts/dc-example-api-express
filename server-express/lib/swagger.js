@@ -31,7 +31,11 @@ function configureSwagger(app) {
       },
     ],
     baseDir: __dirname,
-    filesPattern: ['../routes/api/**/*.js', '../models/**/*.js'],
+    filesPattern: [
+      '../routes/api/**/*.js',
+      '../models/**/*.js',
+      '../middleware/**/*.js',
+    ],
     swaggerUIPath: '/docs',
     exposeApiDocs: true,
     apiDocsPath: '/docs.json',
