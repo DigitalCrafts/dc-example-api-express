@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
    * @property {string} name.required
    * @property {string} image
    * @property {string} description
-   * @property {number} price
-   * @property {number} quantity
-   * @property {string} publishedAt
-   * @property {date} createdAt
-   * @property {date} updatedAt
+   * @property {integer} price
+   * @property {integer} quantity
+   * @property {string} publishedAt -  - date-time
+   * @property {string} createdAt -  - date-time
+   * @property {string} updatedAt -  - date-time
    */
   class Product extends Model {
     static associate(models) {
