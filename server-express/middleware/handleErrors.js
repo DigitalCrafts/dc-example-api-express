@@ -1,4 +1,5 @@
 const express = require('express');
+const NotFoundError = require('../errors/notFoundError');
 const pe = require('../lib/prettyError');
 
 /**
@@ -10,7 +11,7 @@ const pe = require('../lib/prettyError');
 function handleErrors(err, req, res, next) {
   // set outputs, only providing error in development
   const status = err.status || 500;
-  const error = req.app.get('env') === 'development' ? err : {};
+  const error = showError(err, req) ? {} : err;
 
   // Set error status
   res.status(status);
@@ -48,6 +49,18 @@ function errorHtml(error, status) {
 </body>
 </html>
   `;
+}
+
+function showError(err, req) {
+  const errorWhitelist = [NotFoundError];
+
+  if (
+    req.app.get('env') === 'development' ||
+    errorWhitelist.some((x) => err instanceof x)
+  ) {
+    hideError = false;
+  }
+  return hideError;
 }
 
 module.exports = handleErrors;
