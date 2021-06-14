@@ -8,7 +8,6 @@ const validate = require('../../middleware/validate');
  * @param {import('express').Response} res
  */
 async function addProduct(req, res, next) {
-  console.log(req.body);
   const product = await db.Product.create(req.body);
   res.status(201).json(product);
 }
