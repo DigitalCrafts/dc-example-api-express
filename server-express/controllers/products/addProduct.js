@@ -8,7 +8,15 @@ const validate = require('../../middleware/validate');
  * @param {import('express').Response} res
  */
 async function addProduct(req, res, next) {
-  const product = await db.Product.create(req.body);
+  // get only valid properties from Product model
+  let newProductValues = {};
+  for (let property in db.Product.rawAttributes) {
+    if (req.body[propName] !== null || req.body[propName] !== undefined) {
+      newProductValues[property] = req.body[property];
+    }
+  }
+
+  const product = await db.Product.create(newProductValues);
   res.status(201).json(product);
 }
 
