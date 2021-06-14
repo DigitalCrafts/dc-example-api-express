@@ -3,6 +3,7 @@ const express = require('express');
 //controllers
 const getProducts = require('../../controllers/products/getProducts');
 const addProduct = require('../../controllers/products/addProduct');
+const removeProduct = require('../../controllers/products/removeProduct');
 
 // create router
 const router = express.Router();
@@ -35,5 +36,33 @@ router.get('/', getProducts);
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
  */
 router.post('/', addProduct.validate, addProduct);
+
+/**
+ * DELETE /api/v1/products/{id}
+ * @summary Delete product with specific ID
+ * @tags Products
+ * @param {number} id.path.required
+ * @return 201 - Success Response - application/json
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @example response - 400 - Invalid Response
+ * {
+ *   "errors": [
+ *      {
+ *          "value": "example",
+ *          "msg": "id must be an integer",
+ *          "param": "id",
+ *          "location": "params"
+ *      }
+ *   ]
+ * }
+ * @return {NotFoundErrorResponse} 404 - Not Found Response
+ * @example response - 404 - Not Found response
+ * {
+ *   "message": "Product Not Found",
+ *   "status": 404,
+ *   "name": "NotFoundError"
+ * }
+ */
+router.delete('/:id', removeProduct.validate, removeProduct);
 
 module.exports = router;
