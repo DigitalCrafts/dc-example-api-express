@@ -1,4 +1,4 @@
-const { body, param } = require('express-validator');
+const { param } = require('express-validator');
 const db = require('../../models');
 const validate = require('../../middleware/validate');
 const NotFoundError = require('../../errors/notFoundError');

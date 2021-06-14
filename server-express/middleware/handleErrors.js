@@ -58,9 +58,10 @@ function showError(err, req) {
     req.app.get('env') === 'development' ||
     errorWhitelist.some((x) => err instanceof x)
   ) {
-    hideError = false;
+    return false;
   }
-  return hideError;
+
+  return true;
 }
 
 module.exports = handleErrors;
