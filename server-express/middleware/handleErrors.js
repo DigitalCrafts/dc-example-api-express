@@ -1,37 +1,30 @@
-const express = require('express');
 const NotFoundError = require('../errors/notFoundError');
 const pe = require('../lib/prettyError');
 
 /**
- * Handle errors with Pretty Error
- * @param {Error} err
- * @param {express.Request} req
- * @param {express.Response} res
+ * Check if error should be shown
+ * @param {Error} err error to check
+ * @param {import('express').Request} req request object
+ * @returns {boolean} should show error
  */
-function handleErrors(err, req, res, next) {
-  // set outputs, only providing error in development
-  const status = err.status || 500;
-  const error = showError(err, req) ? {} : err;
+function showError(err, req) {
+  const errorWhitelist = [NotFoundError];
 
-  // Set error status
-  res.status(status);
-
-  // determine if error needs json response
-  if (req.accepts('html', 'json') === 'json' || req.path.startsWith('/api')) {
-    res.json(error);
-  } else {
-    res.send(errorHtml(error, status));
+  if (
+    req.app.get('env') === 'development' ||
+    errorWhitelist.some((x) => err instanceof x)
+  ) {
+    return false;
   }
 
-  // render nice error to page
-  console.error(pe.render(err));
+  return true;
 }
 
 /**
  * Get Error HTML from and Error Object
  * @param {Error} error The error to display
  * @param {number} status Status code
- * @returns String of HTML
+ * @returns {string} String of HTML
  */
 function errorHtml(error, status) {
   return `
@@ -51,17 +44,29 @@ function errorHtml(error, status) {
   `;
 }
 
-function showError(err, req) {
-  const errorWhitelist = [NotFoundError];
+/**
+ * Handle errors with Pretty Error
+ * @param {Error} err error to handle
+ * @param {express.Request} req express request object
+ * @param {express.Response} res express response object
+ */
+function handleErrors(err, req, res) {
+  // set outputs, only providing error in development
+  const status = err.status || 500;
+  const error = showError(err, req) ? {} : err;
 
-  if (
-    req.app.get('env') === 'development' ||
-    errorWhitelist.some((x) => err instanceof x)
-  ) {
-    return false;
+  // Set error status
+  res.status(status);
+
+  // determine if error needs json response
+  if (req.accepts('html', 'json') === 'json' || req.path.startsWith('/api')) {
+    res.json(error);
+  } else {
+    res.send(errorHtml(error, status));
   }
 
-  return true;
+  // render nice error to page
+  console.error(pe.render(err));
 }
 
 module.exports = handleErrors;

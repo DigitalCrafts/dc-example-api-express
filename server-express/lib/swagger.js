@@ -2,7 +2,7 @@ const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 /**
  * Configure given application to use look for JSDoc comments and configure the Swagger Specification Docs
- * @param {import('express').Application} app
+ * @param {import('express').Application} app express application
  */
 function configureSwagger(app) {
   // Swagger set up

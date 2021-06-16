@@ -1,17 +1,17 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
+
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.js')[env];
+// eslint-disable-next-line import/no-dynamic-require
+const config = require(`${__dirname}/../config/config.js`)[env];
 
 /**
  * @type {{
- *   [key: string]: typeof import('sequelize/lib/model'),
- *   sequelize: import('sequelize/lib/sequelize'),
- *   Sequelize: import('sequelize/index'),
+ *   [key: string]: typeof import('sequelize').Model,
+ *   sequelize: import('sequelize'),
+ *   Sequelize: import('sequelize/index')
  * }}
  */
 const db = {};
@@ -24,20 +24,20 @@ if (config.use_env_variable) {
     config.database,
     config.username,
     config.password,
-    config
+    config,
   );
 }
 
 fs.readdirSync(__dirname)
-  .filter((file) => {
-    return (
-      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js'
-    );
-  })
+  .filter(
+    (file) =>
+      file.indexOf('.') !== 0 && file !== basename && file.slice(-3) === '.js',
+  )
   .forEach((file) => {
+    // eslint-disable-next-line import/no-dynamic-require, global-require
     const model = require(path.join(__dirname, file))(
       sequelize,
-      Sequelize.DataTypes
+      Sequelize.DataTypes,
     );
     db[model.name] = model;
   });

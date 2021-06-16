@@ -1,18 +1,17 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   /**
    * Product
    * @typedef {object} Product
-   * @property {string} name.required
-   * @property {string} image
-   * @property {string} description
-   * @property {integer} price
-   * @property {integer} quantity
-   * @property {integer} CategoryId
-   * @property {string} publishedAt -  - date-time
-   * @property {string} createdAt -  - date-time
-   * @property {string} updatedAt -  - date-time
+   * @property {string} name Name of the product
+   * @property {string} image image path
+   * @property {string} description description
+   * @property {number} price price in USD cents
+   * @property {number} quantity quantity in stock
+   * @property {string} publishedAt published at (use for scheduling) - date-time
+   * @property {string} createdAt created date/time - date-time
+   * @property {string} updatedAt updated date/time - date-time
    */
   class Product extends Model {
     static associate(models) {
@@ -52,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Product',
-    }
+    },
   );
   return Product;
 };

@@ -1,8 +1,6 @@
 const express = require('express');
-
-//controllers
-const getProducts = require('../../controllers/products/getProducts');
 const addProduct = require('../../controllers/products/addProduct');
+const getProducts = require('../../controllers/products/getProducts');
 const removeProduct = require('../../controllers/products/removeProduct');
 const updateProduct = require('../../controllers/products/updateProduct');
 
@@ -13,7 +11,7 @@ const router = express.Router();
  * GET /api/v1/products
  * @summary Get all products
  * @tags Products
- * @return {array<Product>} 200 - success response - application/json
+ * @returns {Array<Product>} 200 - success response - application/json
  */
 router.get('/', getProducts);
 
@@ -39,7 +37,7 @@ router.get('/', getProducts);
 router.post('/', addProduct.validate, addProduct);
 
 /**
- * PATCH /api/v1/products/{id}
+ * PUT /api/v1/products/{id}
  * @summary Update product with specific ID
  * @tags Products
  * @property {string} name - name of product
@@ -52,7 +50,7 @@ router.post('/', addProduct.validate, addProduct);
  * @return {Product} 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
  */
-router.patch('/:id', updateProduct.validate, updateProduct);
+router.put('/:id', updateProduct.validate, updateProduct);
 
 /**
  * DELETE /api/v1/products/{id}
