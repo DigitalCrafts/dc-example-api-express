@@ -1,24 +1,25 @@
 const { body, param } = require('express-validator');
-const db = require('../../models');
-const validate = require('../../middleware/validate');
 const NotFoundError = require('../../errors/notFoundError');
+const validate = require('../../middleware/validate');
+const db = require('../../models');
 
 /**
  * Update Products
- * @param {import('express').Request} req
- * @param {import('express').Response} res
+ * @param {import('express').Request} req express request object
+ * @param {import('express').Response} res express response object
+ * @param {import('express').NextFunction} next next function
  */
 async function updateProduct(req, res, next) {
   const { id } = req.params;
   const product = await db.Product.findByPk(id);
 
   // get only valid properties from Product model
-  let updatedValues = {};
-  for (let property in db.Product.rawAttributes) {
+  const updatedValues = {};
+  Object.keys(db.Product.rawAttributes).forEach((propName) => {
     if (req.body[propName] !== null || req.body[propName] !== undefined) {
-      updatedValues[property] = req.body[property];
+      updatedValues[propName] = req.body[propName];
     }
-  }
+  });
 
   if (!product) {
     next(new NotFoundError('Product not found'));

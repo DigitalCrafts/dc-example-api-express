@@ -1,13 +1,13 @@
 const { param } = require('express-validator');
-const db = require('../../models');
-const validate = require('../../middleware/validate');
 const NotFoundError = require('../../errors/notFoundError');
+const validate = require('../../middleware/validate');
+const db = require('../../models');
 
 /**
  * Remove Product by id
- * @param {import('express').Request} req
- * @param {import('express').Response} res
- * @param {import('express').NextFunction} next
+ * @param {import('express').Request} req request object
+ * @param {import('express').Response} res response object
+ * @param {import('express').NextFunction} next next function
  */
 async function removeProduct(req, res, next) {
   const { id } = req.params;

@@ -1,8 +1,8 @@
 /**
  * @typedef {object} NotFoundErrorResponse
- * @property {string} message
- * @property {number} status
- * @property {string} name
+ * @property {string} message Error message
+ * @property {number} status HTTP status code
+ * @property {string} name name of error
  */
 
 class NotFoundError extends Error {

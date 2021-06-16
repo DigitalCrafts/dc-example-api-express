@@ -1,20 +1,20 @@
 const { body } = require('express-validator');
-const db = require('../../models');
 const validate = require('../../middleware/validate');
+const db = require('../../models');
 
 /**
  * Get Products
- * @param {import('express').Request} req
- * @param {import('express').Response} res
+ * @param {import('express').Request} req express request object
+ * @param {import('express').Response} res express response object
  */
-async function addProduct(req, res, next) {
+async function addProduct(req, res) {
   // get only valid properties from Product model
-  let newProductValues = {};
-  for (let property in db.Product.rawAttributes) {
+  const newProductValues = {};
+  Object.keys(db.Product.rawAttributes).forEach((propName) => {
     if (req.body[propName] !== null || req.body[propName] !== undefined) {
-      newProductValues[property] = req.body[property];
+      newProductValues[propName] = req.body[propName];
     }
-  }
+  });
 
   const product = await db.Product.create(newProductValues);
   res.status(201).json(product);
