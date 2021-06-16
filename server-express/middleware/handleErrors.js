@@ -46,9 +46,9 @@ function errorHtml(error, status) {
 
 /**
  * Handle errors with Pretty Error
- * @param {Error} err error to handle
- * @param {express.Request} req express request object
- * @param {express.Response} res express response object
+ * @param {Error} err express error
+ * @param {import('express').Request} req express request object
+ * @param {import('express').Response} res express response object
  */
 function handleErrors(err, req, res) {
   // set outputs, only providing error in development
