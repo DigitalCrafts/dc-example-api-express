@@ -27,6 +27,7 @@ module.exports = {
     ],
     'jsdoc/check-property-names': 'off',
     'jsdoc/check-syntax': 'warn',
+    'jsdoc/check-types': 'off',
     'jsdoc/check-tag-names': 'off',
     'jsdoc/newline-after-description': ['warn', 'never'],
     'jsdoc/require-description': ['warn', { descriptionStyle: 'body' }],

@@ -11,7 +11,7 @@ const router = express.Router();
  * GET /api/v1/products
  * @summary Get all products
  * @tags Products
- * @returns {Array<Product>} 200 - success response - application/json
+ * @returns {array<Product>} 200 - success response - application/json
  */
 router.get('/', getProducts);
 
