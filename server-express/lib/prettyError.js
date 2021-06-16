@@ -1,5 +1,6 @@
-const PrettyError = require('pretty-error');
 const path = require('path');
+const PrettyError = require('pretty-error');
+
 const pe = new PrettyError();
 
 pe.skipNodeFiles();

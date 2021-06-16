@@ -1,36 +1,10 @@
-const express = require('express');
 const pe = require('../lib/prettyError');
-
-/**
- * Handle errors with Pretty Error
- * @param {Error} err
- * @param {express.Request} req
- * @param {express.Response} res
- */
-function handleErrors(err, req, res, next) {
-  // set outputs, only providing error in development
-  const status = err.status || 500;
-  const error = req.app.get('env') === 'development' ? err : {};
-
-  // Set error status
-  res.status(status);
-
-  // determine if error needs json response
-  if (req.accepts('html', 'json') === 'json' || req.path.startsWith('/api')) {
-    res.json(error);
-  } else {
-    res.send(errorHtml(error, status));
-  }
-
-  // render nice error to page
-  console.error(pe.render(err));
-}
 
 /**
  * Get Error HTML from and Error Object
  * @param {Error} error The error to display
  * @param {number} status Status code
- * @returns String of HTML
+ * @returns {string} String of HTML
  */
 function errorHtml(error, status) {
   return `
@@ -48,6 +22,31 @@ function errorHtml(error, status) {
 </body>
 </html>
   `;
+}
+
+/**
+ * Handle errors with Pretty Error
+ * @param {Error} err express error
+ * @param {import('express').Request} req express request object
+ * @param {import('express').Response} res express response object
+ */
+function handleErrors(err, req, res) {
+  // set outputs, only providing error in development
+  const status = err.status || 500;
+  const error = req.app.get('env') === 'development' ? err : {};
+
+  // Set error status
+  res.status(status);
+
+  // determine if error needs json response
+  if (req.accepts('html', 'json') === 'json' || req.path.startsWith('/api')) {
+    res.json(error);
+  } else {
+    res.send(errorHtml(error, status));
+  }
+
+  // render nice error to page
+  console.error(pe.render(err));
 }
 
 module.exports = handleErrors;

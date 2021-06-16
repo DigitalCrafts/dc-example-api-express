@@ -1,15 +1,15 @@
-const createError = require('http-errors');
-const express = require('express');
 const path = require('path');
+const sessionSequelize = require('connect-session-sequelize');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const express = require('express');
 const session = require('express-session');
-const db = require('./models');
-const handleErrors = require('./middleware/handleErrors');
+const createError = require('http-errors');
+const logger = require('morgan');
 const configureSwagger = require('./lib/swagger');
-
-const indexRouter = require('./routes/index');
+const handleErrors = require('./middleware/handleErrors');
+const db = require('./models');
 const apiProductsRouter = require('./routes/api/products');
+const indexRouter = require('./routes/index');
 
 // Set up Express Application
 const app = express();
@@ -24,7 +24,7 @@ app.use(cookieParser());
 configureSwagger(app);
 
 // Session
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const SequelizeStore = sessionSequelize(session.Store);
 const store = new SequelizeStore({ db: db.sequelize });
 app.use(
   session({
@@ -32,7 +32,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store,
-  })
+  }),
 );
 store.sync();
 

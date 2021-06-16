@@ -1,11 +1,11 @@
-/** @typedef { import('sequelize/types').QueryInterface } QueryInterface */
-/** @typedef { import('sequelize/types').DataTypes } DataTypes */
+/** @typedef { import('sequelize/types').QueryInterface } QueryInterface QueryInterface */
+/** @typedef { import('sequelize/types').DataTypes } DataTypes DataTypes */
 
 module.exports = {
   /**
    * Run Migration
-   * @param {QueryInterface} queryInterface
-   * @param {DataTypes} Sequelize
+   * @param {QueryInterface} queryInterface sequelize Query Interface
+   * @param {DataTypes} Sequelize available data types
    */
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -55,10 +55,9 @@ module.exports = {
   },
   /**
    * Rollback Migration
-   * @param {QueryInterface} queryInterface
-   * @param {DataTypes} Sequelize
+   * @param {QueryInterface} queryInterface sequelize Query Interface
    */
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Users');
   },
 };
