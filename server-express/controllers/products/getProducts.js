@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const db = require('../../models');
 
 /**
@@ -6,7 +7,15 @@ const db = require('../../models');
  * @param {import('express').Response} res response object
  */
 async function getProducts(req, res) {
-  res.json(await db.Product.findAll());
+  res.json(
+    await db.Product.findAll({
+      where: {
+        publishedAt: {
+          [Op.lt]: Date.now(),
+        },
+      },
+    }),
+  );
 }
 
 module.exports = getProducts;

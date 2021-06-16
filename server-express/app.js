@@ -5,6 +5,7 @@ const express = require('express');
 const session = require('express-session');
 const createError = require('http-errors');
 const logger = require('morgan');
+const pe = require('./lib/prettyError');
 const configureSwagger = require('./lib/swagger');
 const handleErrors = require('./middleware/handleErrors');
 const db = require('./models');
@@ -13,6 +14,9 @@ const indexRouter = require('./routes/index');
 
 // Set up Express Application
 const app = express();
+
+// Enable PrettyError
+pe.start();
 
 // Middleware
 app.use(logger('dev'));

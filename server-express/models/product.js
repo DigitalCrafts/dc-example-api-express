@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
    * @property {string} description description
    * @property {number} price price in USD cents
    * @property {number} quantity quantity in stock
-   * @property {Date} publishedAt published at (use for scheduling)
-   * @property {Date} createdAt created date/time
-   * @property {Date} updatedAt updated date/time
+   * @property {string} publishedAt published at (use for scheduling) - date-time
+   * @property {string} createdAt created date/time - date-time
+   * @property {string} updatedAt updated date/time - date-time
    */
   class Product extends Model {
     static associate(models) {

@@ -23,6 +23,7 @@
     "express": "~4.16.1",
     "express-jsdoc-swagger": "^1.6.1",
     "express-session": "^1.17.2",
+    "express-validator": "^6.12.0",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "nodemon": "^2.0.7",

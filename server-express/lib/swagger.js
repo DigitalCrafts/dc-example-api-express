@@ -14,6 +14,8 @@ function configureSwagger(app) {
     info: {
       title: 'DigitalCrafts Shop API',
       version: '1.0.0',
+      description:
+        'Example API made to teach how to work with RESTful JSON API systems',
       contact: {
         name: 'DigitalCrafts',
         url: 'https://digitalcrafts.com',
@@ -31,7 +33,12 @@ function configureSwagger(app) {
       },
     ],
     baseDir: __dirname,
-    filesPattern: ['../routes/api/**/*.js', '../models/**/*.js'],
+    filesPattern: [
+      '../routes/api/**/*.js',
+      '../models/**/*.js',
+      '../middleware/validate.js',
+      '../errors/**/*.js',
+    ],
     swaggerUIPath: '/docs',
     exposeApiDocs: true,
     apiDocsPath: '/docs.json',

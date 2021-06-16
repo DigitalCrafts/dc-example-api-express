@@ -1,4 +1,24 @@
+const NotFoundError = require('../errors/notFoundError');
 const pe = require('../lib/prettyError');
+
+/**
+ * Check if error should be shown
+ * @param {Error} err error to check
+ * @param {import('express').Request} req request object
+ * @returns {boolean} should show error
+ */
+function showError(err, req) {
+  const errorWhitelist = [NotFoundError];
+
+  if (
+    req.app.get('env') === 'development' ||
+    errorWhitelist.some((x) => err instanceof x)
+  ) {
+    return false;
+  }
+
+  return true;
+}
 
 /**
  * Get Error HTML from and Error Object
@@ -33,7 +53,7 @@ function errorHtml(error, status) {
 function handleErrors(err, req, res) {
   // set outputs, only providing error in development
   const status = err.status || 500;
-  const error = req.app.get('env') === 'development' ? err : {};
+  const error = showError(err, req) ? {} : err;
 
   // Set error status
   res.status(status);
