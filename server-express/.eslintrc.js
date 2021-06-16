@@ -25,7 +25,7 @@ module.exports = {
         'newlines-between': 'never',
       },
     ],
-    'jsdoc/check-examples': 'warn',
+    'jsdoc/check-property-names': 'off',
     'jsdoc/check-syntax': 'warn',
     'jsdoc/check-tag-names': 'off',
     'jsdoc/newline-after-description': ['warn', 'never'],
