@@ -1,5 +1,6 @@
 const express = require('express');
 const addProduct = require('../../controllers/products/addProduct');
+const getProduct = require('../../controllers/products/getProduct');
 const getProducts = require('../../controllers/products/getProducts');
 const removeProduct = require('../../controllers/products/removeProduct');
 const updateProduct = require('../../controllers/products/updateProduct');
@@ -37,9 +38,22 @@ router.get('/', getProducts);
 router.post('/', addProduct.validate, addProduct);
 
 /**
+ * GET /api/v1/products/{id}
+ * @summary Get all products
+ * @tags Products
+ * @param {number} id.path.required
+ * @param {CreateProductDto} request.body.required
+ * @return {Product} 201 - Success Response - application/json
+ * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ */
+router.get('/:id', getProduct.validate, getProduct);
+
+/**
  * PUT /api/v1/products/{id}
  * @summary Update product with specific ID
  * @tags Products
+ * @param {number} id.path.required
  * @property {string} name - name of product
  * @property {string} image - path to image url
  * @property {string} description - description of product
@@ -49,6 +63,7 @@ router.post('/', addProduct.validate, addProduct);
  * @property {string} publishedAt - date to publish product, set in future to schedule product visibility - date-time
  * @return {Product} 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
  */
 router.put('/:id', updateProduct.validate, updateProduct);
 
