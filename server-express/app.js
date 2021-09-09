@@ -9,6 +9,7 @@ const pe = require('./lib/prettyError');
 const configureSwagger = require('./lib/swagger');
 const handleErrors = require('./middleware/handleErrors');
 const db = require('./models');
+const apiCategoriesRouter = require('./routes/api/categories');
 const apiProductsRouter = require('./routes/api/products');
 const indexRouter = require('./routes/index');
 
@@ -46,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', indexRouter);
 app.use('/api/v1/products', apiProductsRouter);
+app.use('/api/v1/categories', apiCategoriesRouter);
 
 // Error Handling
 app.use((req, res, next) => {

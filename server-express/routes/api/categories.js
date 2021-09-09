@@ -2,6 +2,7 @@ const express = require('express');
 const addCategory = require('../../controllers/categories/addCategory');
 const getCategories = require('../../controllers/categories/getCategories');
 const getCategory = require('../../controllers/categories/getCategory');
+const getCategoryChildren = require('../../controllers/categories/getCategoryChildren');
 const removeCategory = require('../../controllers/categories/removeCategory');
 const updateCategory = require('../../controllers/categories/updateCategory');
 
@@ -17,9 +18,17 @@ const router = express.Router();
 router.get('/', getCategories);
 
 /**
+ * @typedef {object} CreateCategoryDto
+ * @property {string} name.required - name of category
+ * @property {boolean} enabled - category is publicly enabled
+ * @property {number} parentId - id of parent category (optional)
+ */
+
+/**
  * POST /api/v1/categories
  * @summary Add new category
  * @tags Categories
+ * @param {CreateCategoryDto} request.body.required
  * @returns {Category} 200 - success response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
  */
@@ -54,14 +63,32 @@ router.post('/', addCategory.validate, addCategory);
 router.get('/:id', getCategory.validate, getCategory);
 
 /**
+ * GET /api/v1/categories/{id}/children
+ * @summary Get single category by id
+ * @tags Categories
+ * @param {number} id.path.required
+ * @returns {Category} 200 - success response - application/json
+ * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ */
+router.get('/:id/children', getCategoryChildren.validate, getCategoryChildren);
+
+/**
+ * @typedef {object} UpdateCategoryDto
+ * @property {string} name - name of category
+ * @property {boolean} enabled - category is publicly enabled
+ * @property {number} parentId - id of parent category (optional)
+ */
+
+/**
  * PUT /api/v1/categories/{id}
  * @summary Update existing category
  * @tags Categories
  * @param {number} id.path.required
- * @property {string} name - name of category
- * @property {boolean} enabled - category is publicly enabled
- * @return {Category} 201 - Success Response - application/json
+ * @param {UpdateCategoryDto} request.body.required
+ * @return {Category} 200 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
  */
 router.put('/:id', updateCategory.validate, updateCategory);
 
@@ -70,7 +97,7 @@ router.put('/:id', updateCategory.validate, updateCategory);
  * @summary Delete a single category by id
  * @tags Categories
  * @param {number} id.path.required
- * @return 201 - Success Response - application/json
+ * @return 204 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response
  * @return {NotFoundErrorResponse} 404 - Not Found Response
  */

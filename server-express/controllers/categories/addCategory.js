@@ -1,4 +1,4 @@
-const { body, param } = require('express-validator');
+const { body } = require('express-validator');
 const validate = require('../../middleware/validate');
 const db = require('../../models');
 
@@ -16,12 +16,18 @@ async function addCategory(req, res) {
     }
   });
 
+  const parent = await db.Category.findByPk(req.body.parentId);
+
   const category = await db.Category.create(newCategoryValues);
+
+  if (parent) {
+    category.setParent(parent);
+  }
+
   res.status(201).json(category);
 }
 
 addCategory.validate = [
-  param('id').isNumeric().withMessage('id must be an integer'),
   body('name')
     .notEmpty()
     .withMessage('field is required')
@@ -29,7 +35,14 @@ addCategory.validate = [
     .withMessage('must be less than 255 characters')
     .trim()
     .escape(),
+  body('parentId')
+    .notEmpty()
+    .withMessage('field is required')
+    .isInt({ gt: 0 })
+    .withMessage('must be a positive integer')
+    .toInt(),
   body('enabled')
+    .optional()
     .isBoolean()
     .withMessage('must be true or false')
     .trim()

@@ -26,6 +26,11 @@ async function updateCategory(req, res, next) {
     }
   });
 
+  const parent = await db.Category.findByPk(req.body.parentId);
+  if (parent) {
+    category.setParent(parent);
+  }
+
   await category.update(updatedValues);
   res.status(200).json(category);
 }
@@ -33,7 +38,6 @@ async function updateCategory(req, res, next) {
 updateCategory.validate = [
   param('id').isNumeric().withMessage('id must be an integer'),
   body('name')
-    .withMessage('field is required')
     .isLength({ max: 255 })
     .withMessage('must be less than 255 characters')
     .trim()
