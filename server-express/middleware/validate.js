@@ -26,7 +26,7 @@ function validate(req, res, next) {
 
 /**
  * @typedef {object} ValidationErrorResponse
- * @property {Array<ValidationError>} errors array of errors
+ * @property {array<ValidationError>} errors array of errors
  */
 
 module.exports = validate;
