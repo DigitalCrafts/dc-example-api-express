@@ -11,7 +11,10 @@ const handleErrors = require('./middleware/handleErrors');
 const db = require('./models');
 const apiCategoriesRouter = require('./routes/api/categories');
 const apiProductsRouter = require('./routes/api/products');
+const apiUsersRouter = require('./routes/api/users');
 const indexRouter = require('./routes/index');
+// error definitions
+require('./errors');
 
 // Set up Express Application
 const app = express();
@@ -48,6 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api/v1/products', apiProductsRouter);
 app.use('/api/v1/categories', apiCategoriesRouter);
+app.use('/api/v1/users', apiUsersRouter);
 
 // Error Handling
 app.use((req, res, next) => {
