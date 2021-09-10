@@ -1,5 +1,4 @@
 const NotFoundError = require('../errors/notFoundError');
-const pe = require('../lib/prettyError');
 
 /**
  * Check if error should be shown
@@ -49,8 +48,9 @@ function errorHtml(error, status) {
  * @param {Error} err express error
  * @param {import('express').Request} req express request object
  * @param {import('express').Response} res express response object
+ * @param {import('express').NextFunction} next express next function
  */
-function handleErrors(err, req, res) {
+function handleErrors(err, req, res, next) {
   // set outputs, only providing error in development
   const status = err.status || 500;
   const error = showError(err, req) ? {} : err;
@@ -65,8 +65,8 @@ function handleErrors(err, req, res) {
     res.send(errorHtml(error, status));
   }
 
-  // render nice error to page
-  console.error(pe.render(err));
+  // pass error on so it displays in the console with the error stack
+  next(err);
 }
 
 module.exports = handleErrors;

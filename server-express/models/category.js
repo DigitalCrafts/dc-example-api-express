@@ -1,6 +1,16 @@
 const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
+  /**
+   * Category
+   * @typedef {object} Category
+   * @property {number} id category id
+   * @property {string} name Name of the category
+   * @property {boolean} enabled if the category is publicly enabled
+   * @property {number} ParentId id of parent category
+   * @property {string} createdAt created date/time - date-time
+   * @property {string} updatedAt updated date/time - date-time
+   */
   class Category extends Model {
     static associate(models) {
       Category.belongsTo(Category, { as: 'Parent', foreignKey: 'ParentId' });
