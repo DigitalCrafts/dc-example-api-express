@@ -1,5 +1,4 @@
 const NotFoundError = require('../errors/notFoundError');
-const pe = require('../lib/prettyError');
 
 /**
  * Check if error should be shown
