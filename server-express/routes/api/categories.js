@@ -3,6 +3,7 @@ const addCategory = require('../../controllers/categories/addCategory');
 const getCategories = require('../../controllers/categories/getCategories');
 const getCategory = require('../../controllers/categories/getCategory');
 const getCategoryChildren = require('../../controllers/categories/getCategoryChildren');
+const getCategoryProducts = require('../../controllers/categories/getCategoryProducts');
 const removeCategory = require('../../controllers/categories/removeCategory');
 const updateCategory = require('../../controllers/categories/updateCategory');
 
@@ -102,5 +103,16 @@ router.put('/:id', updateCategory.validate, updateCategory);
  * @return {NotFoundErrorResponse} 404 - Not Found Response
  */
 router.delete('/:id', removeCategory.validate, removeCategory);
+
+/**
+ * GET /api/v1/categories/{id}/products
+ * @summary Get all products for a category
+ * @tags Categories
+ * @param {number} id.path.required
+ * @returns {array<Product>} 200 - success response - application/json
+ * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ */
+router.get('/:id/products', getCategoryProducts.validate, getCategoryProducts);
 
 module.exports = router;
