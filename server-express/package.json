@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "db:reset": "sequelize db:drop; sequelize db:create && sequelize db:migrate && sequelize db:seed:all"
+    "db:reset": "sequelize db:drop; sequelize db:create && sequelize db:migrate",
+    "db:seed": "sequelize db:seed:all"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,7 @@
     "node": "^14.15.5"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "connect-session-sequelize": "^7.1.2",
     "cookie-parser": "^1.4.5",
     "debug": "~4.3.2",
@@ -25,6 +27,7 @@
     "express-session": "^1.17.2",
     "express-validator": "^6.12.1",
     "http-errors": "~1.8.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "~1.10.0",
     "nodemon": "^2.0.12",
     "pg": "^8.7.1",
@@ -34,6 +37,7 @@
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.15.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
