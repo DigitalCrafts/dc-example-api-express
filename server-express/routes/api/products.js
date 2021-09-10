@@ -23,7 +23,7 @@ router.get('/', getProducts);
  * @property {string} description - description of product
  * @property {integer} price - price in USD cents (e.g. 1000 = US$1.00)
  * @property {integer} quantity - quantity of product in stock
- * @property {integer} CategoryId - id of category to place product in
+ * @property {integer} categoryId - id of category to place product in
  * @property {string} publishedAt - date to publish product, set in future to schedule product visibility - date-time
  */
 
@@ -42,7 +42,6 @@ router.post('/', addProduct.validate, addProduct);
  * @summary Get all products
  * @tags Products
  * @param {number} id.path.required
- * @param {CreateProductDto} request.body.required
  * @return {Product} 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
  * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
@@ -50,17 +49,22 @@ router.post('/', addProduct.validate, addProduct);
 router.get('/:id', getProduct.validate, getProduct);
 
 /**
- * PUT /api/v1/products/{id}
- * @summary Update product with specific ID
- * @tags Products
- * @param {number} id.path.required
+ * @typedef {object} UpdateProductDto
  * @property {string} name - name of product
  * @property {string} image - path to image url
  * @property {string} description - description of product
  * @property {integer} price - price in USD cents (e.g. 1000 = US$1.00)
  * @property {integer} quantity - quantity of product in stock
- * @property {integer} CategoryId - id of category to place product in
+ * @property {integer} categoryId - id of category to place product in
  * @property {string} publishedAt - date to publish product, set in future to schedule product visibility - date-time
+ */
+
+/**
+ * PUT /api/v1/products/{id}
+ * @summary Update product with specific ID
+ * @tags Products
+ * @param {number} id.path.required
+ * @param {UpdateProductDto} request.body.required
  * @return {Product} 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
  * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
