@@ -1,5 +1,5 @@
 const { param } = require('express-validator');
-const NotFoundError = require('../../errors/notFoundError');
+const { NotFound } = require('http-errors');
 const validate = require('../../middleware/validate');
 const db = require('../../models');
 
@@ -13,7 +13,7 @@ async function removeCategory(req, res, next) {
   const { id } = req.params;
   const category = await db.Category.findByPk(id);
   if (!category) {
-    next(new NotFoundError('Category not found'));
+    next(new NotFound('Category not found'));
     return;
   }
   await category.destroy();

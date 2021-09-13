@@ -1,5 +1,5 @@
 const { param } = require('express-validator');
-const NotFoundError = require('../../errors/notFoundError');
+const { NotFound } = require('http-errors');
 const validate = require('../../middleware/validate');
 const db = require('../../models');
 
@@ -12,7 +12,7 @@ const db = require('../../models');
 async function getProduct(req, res, next) {
   const product = await db.Product.findByPk();
   if (!product) {
-    next(new NotFoundError('Product not found'));
+    next(new NotFound('Product not found'));
     return;
   }
   res.json(product);

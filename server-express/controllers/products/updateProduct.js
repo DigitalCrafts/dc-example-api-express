@@ -1,5 +1,5 @@
 const { body, param } = require('express-validator');
-const NotFoundError = require('../../errors/notFoundError');
+const { NotFound } = require('http-errors');
 const validate = require('../../middleware/validate');
 const db = require('../../models');
 
@@ -22,7 +22,7 @@ async function updateProduct(req, res, next) {
   });
 
   if (!product) {
-    next(new NotFoundError('Product not found'));
+    next(new NotFound('Product not found'));
     return;
   }
 

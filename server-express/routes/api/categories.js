@@ -42,24 +42,7 @@ router.post('/', addCategory.validate, addCategory);
  * @param {number} id.path.required
  * @returns {Category} 200 - success response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @example response - 400 - Invalid Response
- * {
- *   "errors": [
- *      {
- *          "value": "example",
- *          "msg": "id must be an integer",
- *          "param": "id",
- *          "location": "params"
- *      }
- *   ]
- * }
- * @return {NotFoundErrorResponse} 404 - Not Found Response
- * @example response - 404 - Not Found response
- * {
- *   "message": "Product Not Found",
- *   "status": 404,
- *   "name": "NotFoundError"
- * }
+ * @return {ErrorResponse} 404 - Not Found Response
  */
 router.get('/:id', getCategory.validate, getCategory);
 
@@ -70,7 +53,7 @@ router.get('/:id', getCategory.validate, getCategory);
  * @param {number} id.path.required
  * @returns {Category} 200 - success response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ * @return {ErrorResponse} 404 - Not Found Response - application/json
  */
 router.get('/:id/children', getCategoryChildren.validate, getCategoryChildren);
 
@@ -89,7 +72,7 @@ router.get('/:id/children', getCategoryChildren.validate, getCategoryChildren);
  * @param {UpdateCategoryDto} request.body.required
  * @return {Category} 200 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ * @return {ErrorResponse} 404 - Not Found Response - application/json
  */
 router.put('/:id', updateCategory.validate, updateCategory);
 
@@ -100,7 +83,7 @@ router.put('/:id', updateCategory.validate, updateCategory);
  * @param {number} id.path.required
  * @return 204 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response
- * @return {NotFoundErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 404 - Not Found Response
  */
 router.delete('/:id', removeCategory.validate, removeCategory);
 
@@ -111,7 +94,7 @@ router.delete('/:id', removeCategory.validate, removeCategory);
  * @param {number} id.path.required
  * @returns {array<Product>} 200 - success response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ * @return {ErrorResponse} 404 - Not Found Response - application/json
  */
 router.get('/:id/products', getCategoryProducts.validate, getCategoryProducts);
 
