@@ -1,24 +1,3 @@
-const NotFoundError = require('../errors/notFoundError');
-
-/**
- * Check if error should be shown
- * @param {Error} err error to check
- * @param {import('express').Request} req request object
- * @returns {boolean} should show error
- */
-function showError(err, req) {
-  const errorWhitelist = [NotFoundError];
-
-  if (
-    req.app.get('env') === 'development' ||
-    errorWhitelist.some((x) => err instanceof x)
-  ) {
-    return false;
-  }
-
-  return true;
-}
-
 /**
  * Get Error HTML from and Error Object
  * @param {Error} error The error to display
@@ -51,9 +30,9 @@ function errorHtml(error, status) {
  * @param {import('express').NextFunction} next express next function
  */
 function handleErrors(err, req, res, next) {
-  // set outputs, only providing error in development
+  // set outputs, only providing error in development or if safe to expose
   const status = err.status || 500;
-  const error = showError(err, req) ? {} : err;
+  const error = req.app.get('env') === 'development' || err.expose ? err : {};
 
   // Set error status
   res.status(status);

@@ -44,7 +44,7 @@ router.post('/', addProduct.validate, addProduct);
  * @param {number} id.path.required
  * @return {Product} 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ * @return {ErrorResponse} 404 - Not Found Response - application/json
  */
 router.get('/:id', getProduct.validate, getProduct);
 
@@ -67,7 +67,7 @@ router.get('/:id', getProduct.validate, getProduct);
  * @param {UpdateProductDto} request.body.required
  * @return {Product} 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {NotFoundErrorResponse} 404 - Not Found Response - application/json
+ * @return {ErrorResponse} 404 - Not Found Response - application/json
  */
 router.put('/:id', updateProduct.validate, updateProduct);
 
@@ -78,24 +78,7 @@ router.put('/:id', updateProduct.validate, updateProduct);
  * @param {number} id.path.required
  * @return 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response
- * @example response - 400 - Invalid Response
- * {
- *   "errors": [
- *      {
- *          "value": "example",
- *          "msg": "id must be an integer",
- *          "param": "id",
- *          "location": "params"
- *      }
- *   ]
- * }
- * @return {NotFoundErrorResponse} 404 - Not Found Response
- * @example response - 404 - Not Found response
- * {
- *   "message": "Product Not Found",
- *   "status": 404,
- *   "name": "NotFoundError"
- * }
+ * @return {ErrorResponse} 404 - Not Found Response
  */
 router.delete('/:id', removeProduct.validate, removeProduct);
 
