@@ -15,7 +15,8 @@ const router = express.Router();
  * GET /api/v1/categories
  * @summary Get all categories
  * @tags Categories
- * @returns {array<Category>} 200 - success response - application/json
+ * @security
+ * @returns {array<Category>} 200 - success response
  */
 router.get('/', getCategories);
 
@@ -30,9 +31,11 @@ router.get('/', getCategories);
  * POST /api/v1/categories
  * @summary Add new category
  * @tags Categories
+ * @security BearerToken
  * @param {CreateCategoryDto} request.body.required
- * @returns {Category} 200 - success response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @returns {Category} 200 - success response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
 router.post('/', hasRole('Admin'), addCategory.validate, addCategory);
 
@@ -40,10 +43,12 @@ router.post('/', hasRole('Admin'), addCategory.validate, addCategory);
  * GET /api/v1/categories/{id}
  * @summary Get single category by id
  * @tags Categories
+ * @security
  * @param {number} id.path.required
- * @returns {Category} 200 - success response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @returns {Category} 200 - success response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
  * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
 router.get('/:id', getCategory.validate, getCategory);
 
@@ -51,10 +56,11 @@ router.get('/:id', getCategory.validate, getCategory);
  * GET /api/v1/categories/{id}/children
  * @summary Get single category by id
  * @tags Categories
+ * @security
  * @param {number} id.path.required
- * @returns {Category} 200 - success response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {ErrorResponse} 404 - Not Found Response - application/json
+ * @returns {Category} 200 - success response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
  */
 router.get('/:id/children', getCategoryChildren.validate, getCategoryChildren);
 
@@ -69,33 +75,44 @@ router.get('/:id/children', getCategoryChildren.validate, getCategoryChildren);
  * PUT /api/v1/categories/{id}
  * @summary Update existing category
  * @tags Categories
+ * @security BearerToken
  * @param {number} id.path.required
  * @param {UpdateCategoryDto} request.body.required
- * @return {Category} 200 - Success Response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {ErrorResponse} 404 - Not Found Response - application/json
+ * @return {Category} 200 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
-router.put('/:id', updateCategory.validate, updateCategory);
+router.put('/:id', hasRole('Admin'), updateCategory.validate, updateCategory);
 
 /**
  * DELETE /api/v1/categories/{id}
  * @summary Delete a single category by id
  * @tags Categories
+ * @security BearerToken
  * @param {number} id.path.required
- * @return 204 - Success Response - application/json
+ * @return 204 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response
  * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
-router.delete('/:id', removeCategory.validate, removeCategory);
+router.delete(
+  '/:id',
+  hasRole('Admin'),
+  removeCategory.validate,
+  removeCategory,
+);
 
 /**
  * GET /api/v1/categories/{id}/products
  * @summary Get all products for a category
  * @tags Categories
+ * @security
  * @param {number} id.path.required
- * @returns {array<Product>} 200 - success response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {ErrorResponse} 404 - Not Found Response - application/json
+ * @returns {array<Product>} 200 - success response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
 router.get('/:id/products', getCategoryProducts.validate, getCategoryProducts);
 
