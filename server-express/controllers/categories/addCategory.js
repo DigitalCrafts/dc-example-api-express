@@ -36,8 +36,7 @@ addCategory.validate = [
     .trim()
     .escape(),
   body('parentId')
-    .notEmpty()
-    .withMessage('field is required')
+    .optional()
     .isInt({ gt: 0 })
     .withMessage('must be a positive integer')
     .toInt(),

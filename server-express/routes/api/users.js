@@ -17,7 +17,7 @@ const router = express.Router();
 
 /**
  * POST /api/v1/users/authentication
- * @summary Delete a single category by id
+ * @summary Authenticate a user and return a JWT token
  * @tags Users
  * @param {AuthenticateUserDto} request.body.required
  * @return {TokenResponse} 200 - Success Response - application/json
@@ -36,7 +36,7 @@ router.post('/authentication', authenticateUser.validate, authenticateUser);
 
 /**
  * POST /api/v1/users/registration
- * @summary Delete a single category by id
+ * @summary Register a new user
  * @tags Users
  * @param {RegisterUserDto} request.body.required
  * @return {User} 201 - Success Response - application/json

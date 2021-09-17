@@ -6,6 +6,7 @@ const getCategoryChildren = require('../../controllers/categories/getCategoryChi
 const getCategoryProducts = require('../../controllers/categories/getCategoryProducts');
 const removeCategory = require('../../controllers/categories/removeCategory');
 const updateCategory = require('../../controllers/categories/updateCategory');
+const hasRole = require('../../middleware/hasRole');
 
 // create router
 const router = express.Router();
@@ -33,7 +34,7 @@ router.get('/', getCategories);
  * @returns {Category} 200 - success response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
  */
-router.post('/', addCategory.validate, addCategory);
+router.post('/', hasRole('User'), addCategory.validate, addCategory);
 
 /**
  * GET /api/v1/categories/{id}
