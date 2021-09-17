@@ -18,7 +18,7 @@ function findUser(id) {
  * @param {import('express').Response} res express response object
  * @param {import('express').NextFunction} next express next function
  */
-async function authorizeRequest(req, res, next) {
+async function authenticateRequest(req, res, next) {
   if (req.session?.user) {
     // check for a session and a user on that session
     req.user = await findUser(req.session.user.id);
@@ -38,4 +38,4 @@ async function authorizeRequest(req, res, next) {
   }
 }
 
-module.exports = authorizeRequest;
+module.exports = authenticateRequest;
