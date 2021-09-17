@@ -21,7 +21,7 @@ function hasRole(...roles) {
       if (roles.some((role) => req.user.role === role)) {
         next();
       } else {
-        next(new Unauthorized('You do not have the required role'));
+        throw new Unauthorized('You do not have the required role');
       }
     } catch (error) {
       next(error);

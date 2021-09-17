@@ -19,6 +19,7 @@ const router = express.Router();
  * POST /api/v1/users/authentication
  * @summary Authenticate a user and return a JWT token
  * @tags Users
+ * @security
  * @param {AuthenticateUserDto} request.body.required
  * @return {TokenResponse} 200 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response
@@ -38,6 +39,7 @@ router.post('/authentication', authenticateUser.validate, authenticateUser);
  * POST /api/v1/users/registration
  * @summary Register a new user
  * @tags Users
+ * @security
  * @param {RegisterUserDto} request.body.required
  * @return {User} 201 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response

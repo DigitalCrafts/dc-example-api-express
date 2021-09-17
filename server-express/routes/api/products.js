@@ -4,6 +4,7 @@ const getProduct = require('../../controllers/products/getProduct');
 const getProducts = require('../../controllers/products/getProducts');
 const removeProduct = require('../../controllers/products/removeProduct');
 const updateProduct = require('../../controllers/products/updateProduct');
+const hasRole = require('../../middleware/hasRole');
 
 // create router
 const router = express.Router();
@@ -12,7 +13,8 @@ const router = express.Router();
  * GET /api/v1/products
  * @summary Get all products
  * @tags Products
- * @returns {array<Product>} 200 - success response - application/json
+ * @security
+ * @returns {array<Product>} 200 - success response
  */
 router.get('/', getProducts);
 
@@ -31,20 +33,23 @@ router.get('/', getProducts);
  * POST /api/v1/products
  * @summary Get all products
  * @tags Products
+ * @security BearerToken
  * @param {CreateProductDto} request.body.required
- * @return {Product} 201 - Success Response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
+ * @return {Product} 201 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
-router.post('/', addProduct.validate, addProduct);
+router.post('/', hasRole('Admin'), addProduct.validate, addProduct);
 
 /**
  * GET /api/v1/products/{id}
  * @summary Get all products
  * @tags Products
+ * @security
  * @param {number} id.path.required
- * @return {Product} 201 - Success Response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {ErrorResponse} 404 - Not Found Response - application/json
+ * @return {Product} 201 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
  */
 router.get('/:id', getProduct.validate, getProduct);
 
@@ -63,23 +68,27 @@ router.get('/:id', getProduct.validate, getProduct);
  * PUT /api/v1/products/{id}
  * @summary Update product with specific ID
  * @tags Products
+ * @security BearerToken
  * @param {number} id.path.required
  * @param {UpdateProductDto} request.body.required
- * @return {Product} 201 - Success Response - application/json
- * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
- * @return {ErrorResponse} 404 - Not Found Response - application/json
+ * @return {Product} 201 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
-router.put('/:id', updateProduct.validate, updateProduct);
+router.put('/:id', hasRole('Admin'), updateProduct.validate, updateProduct);
 
 /**
  * DELETE /api/v1/products/{id}
  * @summary Delete product with specific ID
  * @tags Products
+ * @security BearerToken
  * @param {number} id.path.required
- * @return 201 - Success Response - application/json
+ * @return 201 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response
  * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
  */
-router.delete('/:id', removeProduct.validate, removeProduct);
+router.delete('/:id', hasRole('Admin'), removeProduct.validate, removeProduct);
 
 module.exports = router;
