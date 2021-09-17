@@ -34,7 +34,7 @@ router.get('/', getCategories);
  * @returns {Category} 200 - success response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response - application/json
  */
-router.post('/', hasRole('User'), addCategory.validate, addCategory);
+router.post('/', hasRole('Admin'), addCategory.validate, addCategory);
 
 /**
  * GET /api/v1/categories/{id}
