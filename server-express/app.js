@@ -7,6 +7,7 @@ const createError = require('http-errors');
 const logger = require('morgan');
 const pe = require('./lib/prettyError');
 const configureSwagger = require('./lib/swagger');
+const authorizeRequest = require('./middleware/authorizeRequest');
 const handleErrors = require('./middleware/handleErrors');
 const db = require('./models');
 const apiCategoriesRouter = require('./routes/api/categories');
@@ -46,6 +47,9 @@ store.sync();
 
 // Post-session Middleware
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Authorization Middleware
+app.use(authorizeRequest);
 
 // Routes
 app.use('/', indexRouter);
