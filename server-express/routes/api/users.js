@@ -1,6 +1,7 @@
 const express = require('express');
 const addUser = require('../../controllers/users/addUser');
 const authenticateUser = require('../../controllers/users/authenticateUser');
+const getUser = require('../../controllers/users/getUser');
 const getUsers = require('../../controllers/users/getUsers');
 const registerUser = require('../../controllers/users/registerUser');
 const hasRole = require('../../middleware/hasRole');
@@ -37,6 +38,18 @@ router.get('/', hasRole('Admin'), getUsers);
  * @return {ErrorResponse} 401 - Unauthorized Response
  */
 router.post('/', hasRole('Admin'), addUser.validate, addUser);
+
+/**
+ * GET /api/v1/users/{id}
+ * @summary Get user by id
+ * @tags Users
+ * @security Bearer
+ * @param {string} id.path.required - id of user
+ * @return {User} 200 - Success Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
+ * @return {ErrorResponse} 404 - User not found
+ */
+router.get('/:id', hasRole('Admin', 'User'), getUser.validate, getUser);
 
 /**
  * @typedef {object} AuthenticateUserDto
