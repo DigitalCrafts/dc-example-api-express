@@ -1,8 +1,22 @@
 const express = require('express');
 const authenticateUser = require('../../controllers/users/authenticateUser');
+const getUsers = require('../../controllers/users/getUsers');
 const registerUser = require('../../controllers/users/registerUser');
+const hasRole = require('../../middleware/hasRole');
 
 const router = express.Router();
+
+/**
+ * GET /api/v1/users
+ * @summary Get all users
+ * @tags Users
+ * @security Bearer
+ * @param {RegisterUserDto} request.body.required
+ * @return {array<User>} 200 - Success Response - application/json
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 409 - Conflict Response (user already exists) - application/json
+ */
+router.get('/', hasRole('Admin'), getUsers);
 
 /**
  * @typedef {object} AuthenticateUserDto
@@ -47,7 +61,6 @@ router.post('/authentication', authenticateUser.validate, authenticateUser);
  */
 router.post('/registration', registerUser.validate, registerUser);
 
-// GET /api/v1/users
 // GET /api/v1/users/:id
 // GET /api/v1/users/search
 
