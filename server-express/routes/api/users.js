@@ -11,7 +11,6 @@ const router = express.Router();
  * @summary Get all users
  * @tags Users
  * @security Bearer
- * @param {RegisterUserDto} request.body.required
  * @return {array<User>} 200 - Success Response - application/json
  * @return {ValidationErrorResponse} 400 - Invalid Response
  * @return {ErrorResponse} 409 - Conflict Response (user already exists) - application/json
