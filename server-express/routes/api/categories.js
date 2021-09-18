@@ -31,7 +31,7 @@ router.get('/', getCategories);
  * POST /api/v1/categories
  * @summary Add new category
  * @tags Categories
- * @security BearerToken
+ * @security Bearer
  * @param {CreateCategoryDto} request.body.required
  * @returns {Category} 200 - success response
  * @return {ValidationErrorResponse} 400 - Invalid Response
@@ -75,7 +75,7 @@ router.get('/:id/children', getCategoryChildren.validate, getCategoryChildren);
  * PUT /api/v1/categories/{id}
  * @summary Update existing category
  * @tags Categories
- * @security BearerToken
+ * @security Bearer
  * @param {number} id.path.required
  * @param {UpdateCategoryDto} request.body.required
  * @return {Category} 200 - Success Response
@@ -89,7 +89,7 @@ router.put('/:id', hasRole('Admin'), updateCategory.validate, updateCategory);
  * DELETE /api/v1/categories/{id}
  * @summary Delete a single category by id
  * @tags Categories
- * @security BearerToken
+ * @security Bearer
  * @param {number} id.path.required
  * @return 204 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response

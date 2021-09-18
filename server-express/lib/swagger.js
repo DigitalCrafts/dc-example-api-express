@@ -22,7 +22,7 @@ function configureSwagger(app) {
       },
     },
     security: {
-      BearerToken: {
+      Bearer: {
         type: 'http',
         description:
           'JWT token. Use the `/api/v1/users/authentication` route to get retrieve an active token',

@@ -33,7 +33,7 @@ router.get('/', getProducts);
  * POST /api/v1/products
  * @summary Get all products
  * @tags Products
- * @security BearerToken
+ * @security Bearer
  * @param {CreateProductDto} request.body.required
  * @return {Product} 201 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response
@@ -68,7 +68,7 @@ router.get('/:id', getProduct.validate, getProduct);
  * PUT /api/v1/products/{id}
  * @summary Update product with specific ID
  * @tags Products
- * @security BearerToken
+ * @security Bearer
  * @param {number} id.path.required
  * @param {UpdateProductDto} request.body.required
  * @return {Product} 201 - Success Response
@@ -82,7 +82,7 @@ router.put('/:id', hasRole('Admin'), updateProduct.validate, updateProduct);
  * DELETE /api/v1/products/{id}
  * @summary Delete product with specific ID
  * @tags Products
- * @security BearerToken
+ * @security Bearer
  * @param {number} id.path.required
  * @return 201 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response
