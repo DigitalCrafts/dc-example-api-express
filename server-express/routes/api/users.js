@@ -12,9 +12,9 @@ const router = express.Router();
  * @summary Get all users
  * @tags Users
  * @security Bearer
- * @return {array<User>} 200 - Success Response - application/json
+ * @return {array<User>} 200 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response
- * @return {ErrorResponse} 409 - Conflict Response (user already exists) - application/json
+ * @return {ErrorResponse} 409 - Conflict Response (user already exists)
  */
 router.get('/', hasRole('Admin'), getUsers);
 
@@ -55,7 +55,7 @@ router.post('/', hasRole('Admin'), addUser.validate, addUser);
  * @tags Users
  * @security
  * @param {AuthenticateUserDto} request.body.required
- * @return {TokenResponse} 200 - Success Response - application/json
+ * @return {TokenResponse} 200 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response
  * @return {ErrorResponse} 401 - Invalid Password
  * @return {ErrorResponse} 404 - Not Found Response
@@ -75,9 +75,9 @@ router.post('/authentication', authenticateUser.validate, authenticateUser);
  * @tags Users
  * @security
  * @param {RegisterUserDto} request.body.required
- * @return {User} 201 - Success Response - application/json
+ * @return {User} 201 - Success Response
  * @return {ValidationErrorResponse} 400 - Invalid Response
- * @return {ErrorResponse} 409 - Conflict Response (user already exists) - application/json
+ * @return {ErrorResponse} 409 - Conflict Response (user already exists)
  */
 router.post('/registration', registerUser.validate, registerUser);
 
