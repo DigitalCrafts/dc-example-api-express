@@ -8,6 +8,8 @@ module.exports = (sequelize, DataTypes) => {
    * @property {string} email email address
    * @property {string} name full name
    * @property {number} RoleId ID of the user's role
+   * @property {string} createdAt created date/time - date-time
+   * @property {string} updatedAt updated date/time - date-time
    */
   class User extends Model {
     static associate(models) {
