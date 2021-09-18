@@ -31,7 +31,7 @@ router.get('/', getProducts);
 
 /**
  * POST /api/v1/products
- * @summary Get all products
+ * @summary Add new product
  * @tags Products
  * @security Bearer
  * @param {CreateProductDto} request.body.required
