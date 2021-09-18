@@ -10,7 +10,7 @@ const db = require('../../models');
  * @param {import('express').NextFunction} next next function
  */
 async function getProduct(req, res, next) {
-  const product = await db.Product.findByPk();
+  const product = await db.Product.findByPk(req.params.id);
   if (!product) {
     next(new NotFound('Product not found'));
     return;
