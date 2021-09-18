@@ -1,4 +1,5 @@
 const express = require('express');
+const addUser = require('../../controllers/users/addUser');
 const authenticateUser = require('../../controllers/users/authenticateUser');
 const getUsers = require('../../controllers/users/getUsers');
 const registerUser = require('../../controllers/users/registerUser');
@@ -16,6 +17,26 @@ const router = express.Router();
  * @return {ErrorResponse} 409 - Conflict Response (user already exists) - application/json
  */
 router.get('/', hasRole('Admin'), getUsers);
+
+/**
+ * @typedef {object} CreateUserDto
+ * @property {string} name.required - name of user
+ * @property {string} email - email of user
+ * @property {string} password - password of user
+ * @property {oneOf|number|string} role - role of the User. Can be either the name or id of a valid role
+ */
+
+/**
+ * POST /api/v1/users
+ * @summary Add new user
+ * @tags Users
+ * @security Bearer
+ * @param {CreateUserDto} request.body.required
+ * @return {User} 201 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
+ */
+router.post('/', hasRole('Admin'), addUser.validate, addUser);
 
 /**
  * @typedef {object} AuthenticateUserDto
