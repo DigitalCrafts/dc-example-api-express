@@ -21,6 +21,11 @@ function configureSwagger(app) {
         url: 'https://digitalcrafts.com',
       },
     },
+    swaggerUiOptions: {
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
+    },
     security: {
       Bearer: {
         type: 'http',
