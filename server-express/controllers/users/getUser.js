@@ -2,7 +2,6 @@ const { param } = require('express-validator');
 const { NotFound } = require('http-errors');
 const validate = require('../../middleware/validate');
 const db = require('../../models');
-const getUsers = require('./getUsers');
 
 /**
  * Get user by id

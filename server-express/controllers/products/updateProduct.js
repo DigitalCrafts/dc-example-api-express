@@ -4,7 +4,7 @@ const validate = require('../../middleware/validate');
 const db = require('../../models');
 
 /**
- * Update Products
+ * Update Product by id
  * @param {import('express').Request} req express request object
  * @param {import('express').Response} res express response object
  * @param {import('express').NextFunction} next next function
