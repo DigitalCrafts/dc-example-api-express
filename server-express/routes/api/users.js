@@ -4,6 +4,7 @@ const authenticateUser = require('../../controllers/users/authenticateUser');
 const getUser = require('../../controllers/users/getUser');
 const getUsers = require('../../controllers/users/getUsers');
 const registerUser = require('../../controllers/users/registerUser');
+const removeUser = require('../../controllers/users/removeUser');
 const updateUser = require('../../controllers/users/updateUser');
 const hasRole = require('../../middleware/hasRole');
 
@@ -84,6 +85,19 @@ router.put('/:id', hasRole('Admin', 'User'), updateUser.validate, updateUser);
  * @typedef {object} TokenResponse
  * @property {string} token JWT string
  */
+
+/**
+ * DELETE /api/v1/users/{id}
+ * @summary Delete user with specific ID
+ * @tags Users
+ * @security Bearer
+ * @param {number} id.path.required
+ * @return 201 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
+ */
+router.delete('/:id', hasRole('Admin'), removeUser.validate, removeUser);
 
 /**
  * POST /api/v1/users/authentication
