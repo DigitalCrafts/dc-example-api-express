@@ -6,6 +6,7 @@ const session = require('express-session');
 const createError = require('http-errors');
 const logger = require('morgan');
 const pe = require('./lib/prettyError');
+const setupTask = require('./lib/setupTask');
 const configureSwagger = require('./lib/swagger');
 const authenticateRequest = require('./middleware/authenticateRequest');
 const handleErrors = require('./middleware/handleErrors');
@@ -16,6 +17,9 @@ const apiUsersRouter = require('./routes/api/users');
 const indexRouter = require('./routes/index');
 // error definitions
 require('./errors');
+
+// setup roles if required
+setupTask();
 
 // Set up Express Application
 const app = express();
