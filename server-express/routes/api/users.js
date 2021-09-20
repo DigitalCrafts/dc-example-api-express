@@ -4,6 +4,7 @@ const authenticateUser = require('../../controllers/users/authenticateUser');
 const getUser = require('../../controllers/users/getUser');
 const getUsers = require('../../controllers/users/getUsers');
 const registerUser = require('../../controllers/users/registerUser');
+const updateUser = require('../../controllers/users/updateUser');
 const hasRole = require('../../middleware/hasRole');
 
 const router = express.Router();
@@ -50,6 +51,28 @@ router.post('/', hasRole('Admin'), addUser.validate, addUser);
  * @return {ErrorResponse} 404 - User not found
  */
 router.get('/:id', hasRole('Admin', 'User'), getUser.validate, getUser);
+
+/**
+ * @typedef {object} UpdateUserDto
+ * @property {string} name - name of user
+ * @property {string} email - email of user
+ * @property {string} password - password of user
+ * @property {oneOf|number|string} role - role of the User. Can be either the name or id of a valid role
+ */
+
+/**
+ * PUT /api/v1/products/{id}
+ * @summary Update product with specific ID
+ * @tags Users
+ * @security Bearer
+ * @param {number} id.path.required
+ * @param {UpdateUserDto} request.body.required
+ * @return {User} 201 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
+ */
+router.put('/:id', hasRole('Admin', 'User'), updateUser.validate, updateUser);
 
 /**
  * @typedef {object} AuthenticateUserDto
