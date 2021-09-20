@@ -61,7 +61,7 @@ router.get('/:id', hasRole('Admin', 'User'), getUser.validate, getUser);
  */
 
 /**
- * PUT /api/v1/products/{id}
+ * PUT /api/v1/users/{id}
  * @summary Update product with specific ID
  * @tags Users
  * @security Bearer
