@@ -18,7 +18,9 @@ function hasRole(...roles) {
       if (!req.user) {
         throw new Unauthorized('You are not authorized to perform this action');
       }
-      if (roles.some((role) => req.user.role === role)) {
+      if (
+        roles.some((role) => req.user.role.toLowerCase() === role.toLowerCase())
+      ) {
         next();
       } else {
         throw new Unauthorized('You do not have the required role');

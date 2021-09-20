@@ -21,8 +21,13 @@ function configureSwagger(app) {
         url: 'https://digitalcrafts.com',
       },
     },
+    swaggerUiOptions: {
+      swaggerOptions: {
+        persistAuthorization: true,
+      },
+    },
     security: {
-      BearerToken: {
+      Bearer: {
         type: 'http',
         description:
           'JWT token. Use the `/api/v1/users/authentication` route to get retrieve an active token',

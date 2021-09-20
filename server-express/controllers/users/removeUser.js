@@ -4,23 +4,25 @@ const validate = require('../../middleware/validate');
 const db = require('../../models');
 
 /**
- * Get product by id
- * @param {import('express').Request} req request from client
+ * Remove User by id
+ * @param {import('express').Request} req request object
  * @param {import('express').Response} res response object
  * @param {import('express').NextFunction} next next function
  */
-async function getProduct(req, res, next) {
-  const product = await db.Product.findByPk(req.params.id);
+async function removeUser(req, res, next) {
+  const { id } = req.params;
+  const product = await db.User.findByPk(id);
   if (!product) {
-    next(new NotFound('Product not found'));
+    next(new NotFound('User not found'));
     return;
   }
-  res.json(product);
+  await product.destroy();
+  res.status(204).json();
 }
 
-getProduct.validate = [
+removeUser.validate = [
   param('id').isNumeric().withMessage('id must be an integer'),
   validate,
 ];
 
-module.exports = getProduct;
+module.exports = removeUser;
