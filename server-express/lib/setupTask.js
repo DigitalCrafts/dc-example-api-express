@@ -28,7 +28,8 @@ function setupRoles() {
 }
 
 /**
- *
+ * create admin user if it does not exist
+ * @returns {Promise} A promise that resolves when the admin user is created
  */
 function setupAdminUser() {
   debug('Checking for admin user');
