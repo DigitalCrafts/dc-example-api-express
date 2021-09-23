@@ -2,6 +2,7 @@ const express = require('express');
 const addUser = require('../../controllers/users/addUser');
 const authenticateUser = require('../../controllers/users/authenticateUser');
 const getUser = require('../../controllers/users/getUser');
+const getUserOrders = require('../../controllers/users/getUserOrders');
 const getUsers = require('../../controllers/users/getUsers');
 const registerUser = require('../../controllers/users/registerUser');
 const removeUser = require('../../controllers/users/removeUser');
@@ -98,6 +99,24 @@ router.put('/:id', hasRole('Admin', 'User'), updateUser.validate, updateUser);
  * @return {ErrorResponse} 401 - Unauthorized Response
  */
 router.delete('/:id', hasRole('Admin'), removeUser.validate, removeUser);
+
+/**
+ * GET /api/v1/users/{id}/orders
+ * @summary Get orders for user by user id
+ * @tags Users
+ * @security Bearer
+ * @param {number} id.path.required
+ * @return 201 - Success Response
+ * @return {ValidationErrorResponse} 400 - Invalid Response
+ * @return {ErrorResponse} 404 - Not Found Response
+ * @return {ErrorResponse} 401 - Unauthorized Response
+ */
+router.get(
+  '/:id',
+  hasRole('Admin', 'User'),
+  getUserOrders.validate,
+  getUserOrders,
+);
 
 /**
  * POST /api/v1/users/authentication

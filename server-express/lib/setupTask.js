@@ -28,14 +28,15 @@ function setupRoles() {
 }
 
 /**
- *
+ * create admin user if it does not exist
+ * @returns {Promise} A promise that resolves when the admin user is created
  */
 function setupAdminUser() {
   debug('Checking for admin user');
   return db.User.findOne().then(async (user) => {
     if (!user) {
       debug('No users found. Attempting to create first user as admin user.');
-      const email = process.env.ADMIN_EMAIL || 'admin';
+      const email = process.env.ADMIN_EMAIL || 'admin@admin.com';
       const password = process.env.ADMIN_PASSWORD;
       if (!password) {
         throw new Error(
@@ -43,7 +44,7 @@ function setupAdminUser() {
         );
       }
       const role = await db.Role.findOne({ where: { name: 'Admin' } });
-      const newUser = db.User.create({
+      const newUser = await db.User.create({
         name: 'Admin',
         email,
         password,
