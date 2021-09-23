@@ -1,5 +1,6 @@
 const express = require('express');
 const createOrder = require('../../controllers/orders/createOrder');
+const deleteOrder = require('../../controllers/orders/deleteOrder');
 const getOrder = require('../../controllers/orders/getOrder');
 const getOrders = require('../../controllers/orders/getOrders');
 const hasRole = require('../../middleware/hasRole');
@@ -53,10 +54,25 @@ router.post('/', hasRole('Admin', 'User'), createOrder.validate, createOrder);
  * GET /api/v1/orders/{uuid}
  * @summary Get order by uuid
  * @tags Orders
- * @param {string} uuid.path.required - uuid of the order - uuidv4
+ * @param {string} uuid.path.required - uuid of the order - uuid
  * @security Bearer
  * @returns {array<Order>} 200 - success response
  */
-router.get('/:uuid', hasRole('Admin', 'User'), getOrder);
+router.get('/:uuid', hasRole('Admin', 'User'), getOrder.validate, getOrder);
+
+/**
+ * DELETE /api/v1/orders/{uuid}
+ * @summary Delete order by uuid
+ * @tags Orders
+ * @param {string} uuid.path.required - uuid of the order - uuid
+ * @security Bearer
+ * @returns {array<Order>} 200 - success response
+ */
+router.get(
+  '/:uuid',
+  hasRole('Admin', 'User'),
+  deleteOrder.validate,
+  deleteOrder,
+);
 
 module.exports = router;
