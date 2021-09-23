@@ -1,3 +1,0 @@
-# Client - Vue
-
-Coming Soon™
