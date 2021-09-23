@@ -25,8 +25,10 @@ setupTask();
 // Set up Express Application
 const app = express();
 
-// Enable PrettyError
-pe.start();
+// Enable PrettyError in Development
+if (process.env.NODE_ENV !== 'production') {
+  pe.start();
+}
 
 // Middleware
 app.use(logger('dev'));

@@ -22,8 +22,10 @@ module.exports = {
           port: process.env.DB_PORT || 5432,
         }),
     // if DB_HEROKU_SSL exists, then we need to add a few extra postgres options
-    ...(process.env.DB_HEROKU_SSL && {
-      ssl: { require: true, rejectUnauthorized: false },
-    }),
+    ...(process.env.DB_HEROKU_SSL
+      ? {
+          ssl: { require: true, rejectUnauthorized: false },
+        }
+      : {}),
   },
 };
