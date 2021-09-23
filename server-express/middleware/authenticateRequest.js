@@ -29,7 +29,9 @@ async function authenticateRequest(req, res, next) {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = await findUser(decoded.id);
-    req.user.role = req.user.Role.name;
+    if (req.user) {
+      req.user.role = req.user.Role.name;
+    }
     next();
   } else {
     // assume unauthenticated
