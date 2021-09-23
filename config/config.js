@@ -1,3 +1,5 @@
+const debug = require('debug')('database-config');
+
 const config = {
   development: {
     dialect: 'postgres',
@@ -30,6 +32,6 @@ const config = {
   },
 };
 
-console.log(config);
+debug(config);
 
 module.exports = config;
