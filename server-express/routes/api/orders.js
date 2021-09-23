@@ -1,5 +1,6 @@
 const express = require('express');
 const createOrder = require('../../controllers/orders/createOrder');
+const getOrder = require('../../controllers/orders/getOrder');
 const getOrders = require('../../controllers/orders/getOrders');
 const hasRole = require('../../middleware/hasRole');
 
@@ -47,5 +48,15 @@ router.get('/', hasRole('Admin'), getOrders);
  * @return {ErrorResponse} 401 - Unauthorized Response
  */
 router.post('/', hasRole('Admin', 'User'), createOrder.validate, createOrder);
+
+/**
+ * GET /api/v1/orders/{uuid}
+ * @summary Get order by uuid
+ * @tags Orders
+ * @param {string} uuid.path.required - uuid of the order - uuidv4
+ * @security Bearer
+ * @returns {array<Order>} 200 - success response
+ */
+router.get('/:uuid', hasRole('Admin', 'User'), getOrder);
 
 module.exports = router;
