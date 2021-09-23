@@ -12,6 +12,7 @@ const authenticateRequest = require('./middleware/authenticateRequest');
 const handleErrors = require('./middleware/handleErrors');
 const db = require('./models');
 const apiCategoriesRouter = require('./routes/api/categories');
+const apiOrdersRouter = require('./routes/api/orders');
 const apiProductsRouter = require('./routes/api/products');
 const apiUsersRouter = require('./routes/api/users');
 const indexRouter = require('./routes/index');
@@ -60,6 +61,7 @@ app.use('/', indexRouter);
 app.use('/api/v1/products', apiProductsRouter);
 app.use('/api/v1/categories', apiCategoriesRouter);
 app.use('/api/v1/users', apiUsersRouter);
+app.use('/api/v1/orders', apiOrdersRouter);
 
 // Error Handling
 app.use((req, res, next) => {

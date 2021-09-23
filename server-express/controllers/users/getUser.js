@@ -16,7 +16,7 @@ async function getUser(req, res, next) {
       throw new NotFound('User not found');
     }
     if (
-      (await req.user.getRole().name) !== 'Admin' &&
+      (await req.user.getRole()).name !== 'Admin' &&
       req.user.id !== user.id
     ) {
       // if the user is not an admin and the current user's id is not the same
